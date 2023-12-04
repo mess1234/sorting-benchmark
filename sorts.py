@@ -140,18 +140,43 @@ def insertion_sort(l: list, cmp=compare) -> None:
         >>> __is_sorted(l1)
         True
     """
-    # the slice l[0:1] is sorted
+    # l[0:1] is sorted
     for i in range(1, len(l)):
-        # the slice l[0:i] is sorted
+        # l[0:i] is sorted
         __insert(l, i, cmp=cmp)
-        # the slice l[0:i+1] is sorted
-    # the slice l[0:len(l)] is sorted
+        # l[0:i+1] is sorted
+    # l[0:len(l)] is sorted
+
+
+# ==============================================================
+# QUICKSORT
+# ==============================================================
+
+def partition(x, l: list, cmp=compare) -> tuple[list, list]:
+    if l == []:
+        return ([], [])
+    l1, l2 = partition(x, l[1:], cmp=cmp)
+    if cmp(l[0], x) == 1:
+        l2.append(l[0])
+    else:
+        l1.append(l[0])
+    return (l1, l2)
+
+
+def quicksort(l: list, cmp=compare) -> None:
+    if len(l) <= 1:
+        return l.copy()
+    pivot = l.pop()
+    l1, l2 = partition(pivot, l, cmp=cmp)
+    l1 = quicksort(l1, cmp=cmp)
+    l2 = quicksort(l2, cmp=cmp)
+    return l1 + [pivot] + l2
+
+# ==============================================================
+# MERGE SORT
+# ==============================================================
 
 
 if __name__ == '__main__':
     import doctest
     doctest.testmod(verbose=False)
-    
-    
-
-    
