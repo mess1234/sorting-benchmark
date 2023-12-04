@@ -131,6 +131,27 @@ def insertion_sort(l: list, cmp=compare) -> None:
 # ==============================================================
 
 def __partition(x, l: list, cmp=compare) -> tuple[list, list]:
+    """Split `l` in two lists `(l1, l2)` such that `l2` contains the items
+    greater than `x`.
+
+    Arguments:
+        x -- pivot, must be comparable with elements of `l`
+        l -- list
+
+    Keyword Arguments:
+        cmp -- comparison function (default: {compare})
+
+    Returns:
+        (l1, l2)
+    
+    Examples:
+        >>> __partition(3, [1, 4, 1, 5, 9, 2])
+        ([2, 1, 1], [9, 5, 4])
+        >>> __partition(10, [1, 4, 1, 5, 9, 2])
+        ([2, 9, 5, 1, 4, 1], [])
+        >>> __partition(3, [])
+        ([], [])
+    """
     if l == []:
         return ([], [])
     l1, l2 = __partition(x, l[1:], cmp=cmp)
@@ -142,6 +163,28 @@ def __partition(x, l: list, cmp=compare) -> tuple[list, list]:
 
 
 def quicksort(l: list, cmp=compare) -> list:
+    """Return a new list containing elements of `l` sorted in ascending order.
+
+    Arguments:
+        l -- a list whose items are comparable with `cmp`
+
+    Keyword Arguments:
+        cmp -- comparison function (default: {compare})
+
+    Returns:
+        sorted version of `l`
+
+    Examples:
+        >>> from random import randrange
+        >>> from testing import is_sorted
+        >>> n = 100
+        >>> l1 = [randrange(0, n) for _ in range(n)]
+        >>> l2 = quicksort(l1)
+        >>> len(l1) == len(l2)
+        True
+        >>> is_sorted(l2)
+        True
+    """
     if len(l) <= 1:
         return l.copy()
     pivot = l.pop()
