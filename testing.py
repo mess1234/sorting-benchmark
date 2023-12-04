@@ -37,7 +37,20 @@ def is_sorted(l: list, cmp=compare) -> bool:
 
 
 @timing
-def sort_many_lists(sort_fn, lst_len: int, nb_lst: int, cmp=compare) -> None:
+def sort_many_lists(sort_fn, lst_len: int, nb_lst: int) -> None:
+    """Generate random lists of fixed length and sort them using `sort_fn`.
+    This process will be timed thanks to the `@timing` decorator.
+
+    Arguments:
+        sort_fn -- a sorting function
+        lst_len -- length of the lists
+        nb_lst -- number of list to generate and sort
+    """
     for _ in range(nb_lst):
         random_list = list(randrange(lst_len) for _ in range(lst_len))
         sort_fn(random_list)
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod(verbose=False)
