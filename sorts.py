@@ -143,7 +143,7 @@ def __partition(x, l: list, cmp=compare) -> tuple[list, list]:
 
     Returns:
         (l1, l2)
-    
+
     Examples:
         >>> __partition(3, [1, 4, 1, 5, 9, 2])
         ([2, 1, 1], [9, 5, 4])
@@ -200,11 +200,47 @@ def quicksort(l: list, cmp=compare) -> list:
 # ==============================================================
 
 def __split(l: list) -> tuple[list, list]:
+    """Splits `l` in two lists `(l1, l2)` such that
+    `len(l2) - len(l1) == len(l) % 2`.
+
+    Arguments:
+        l -- a list
+
+    Returns:
+        (l1, l2)
+
+    Examples:
+        >>> from random import randrange
+        >>> from testing import is_sorted
+        >>> n = 100
+        >>> l = [randrange(0, n) for _ in range(n)]
+        >>> l1, l2 = __split(l)
+        >>> len(l2) - len(l1) == len(l) % 2
+        True
+        >>> l1 + l2 == l
+        True
+    """
     middle = len(l) // 2
     return (l[:middle], l[middle:])
 
 
 def __merge(l1: list, l2: list, cmp=compare) -> list:
+    """Merge two sorted lists.
+
+    Arguments:
+        l1 -- a sorted list
+        l2 -- a sorted list
+
+    Keyword Arguments:
+        cmp -- comparison function (default: {compare})
+
+    Returns:
+        A sorted version of `l1 + l2`
+
+    Examples:
+        >>> __merge([1, 3, 4, 9], [1, 2, 5])
+        [1, 1, 2, 3, 4, 5, 9]
+    """
     if l1 == []:
         return l2.copy()
     if l2 == []:
@@ -215,6 +251,28 @@ def __merge(l1: list, l2: list, cmp=compare) -> list:
 
 
 def mergesort(l: list, cmp=compare) -> list:
+    """Return a new list containing elements of `l` sorted in ascending order.
+
+    Arguments:
+        l -- a list whose items are comparable with `cmp`
+
+    Keyword Arguments:
+        cmp -- comparison function (default: {compare})
+
+    Returns:
+        sorted version of `l`
+
+    Examples:
+        >>> from random import randrange
+        >>> from testing import is_sorted
+        >>> n = 100
+        >>> l1 = [randrange(0, n) for _ in range(n)]
+        >>> l2 = quicksort(l1)
+        >>> len(l1) == len(l2)
+        True
+        >>> is_sorted(l2)
+        True
+    """
     n = len(l)
     if n <= 1:
         return l.copy()
