@@ -2,30 +2,6 @@ from compare import compare
 
 
 # ==============================================================
-# TESTING
-# ==============================================================
-
-def __is_sorted(l: list, cmp=compare) -> bool:
-    """Return True if `l` is sorted in ascending order, False otherwise.
-
-    Arguments:
-        l -- a list whose items are comparable with `cmp`
-
-    Keyword Arguments:
-        cmp -- comparison function (default: {compare})
-
-    Examples:
-        >>> __is_sorted([1, 2, 3, 4])
-        True
-        >>> __is_sorted([1, 2, 4, 3])
-        False
-        >>> __is_sorted([])
-        True
-    """
-    return all(cmp(x, y) != 1 for x, y in zip(l, l[1:]))
-
-
-# ==============================================================
 # SELECTION SORT
 # ==============================================================
 
@@ -89,10 +65,11 @@ def selection_sort(l: list, cmp=compare) -> None:
 
     Examples:
         >>> from random import randrange
+        >>> from testing import is_sorted
         >>> n = 100
-        >>> l1 = [randrange(0, n) for i in range(n)]
+        >>> l1 = [randrange(0, n) for _ in range(n)]
         >>> selection_sort(l1)
-        >>> __is_sorted(l1)
+        >>> is_sorted(l1)
         True
     """
     n = len(l)
@@ -134,10 +111,11 @@ def insertion_sort(l: list, cmp=compare) -> None:
 
     Examples:
         >>> from random import randrange
+        >>> from testing import is_sorted
         >>> n = 100
-        >>> l1 = [randrange(0, n) for i in range(n)]
+        >>> l1 = [randrange(0, n) for _ in range(n)]
         >>> selection_sort(l1)
-        >>> __is_sorted(l1)
+        >>> is_sorted(l1)
         True
     """
     # l[0:1] is sorted
