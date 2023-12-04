@@ -152,10 +152,10 @@ def insertion_sort(l: list, cmp=compare) -> None:
 # QUICKSORT
 # ==============================================================
 
-def partition(x, l: list, cmp=compare) -> tuple[list, list]:
+def __partition(x, l: list, cmp=compare) -> tuple[list, list]:
     if l == []:
         return ([], [])
-    l1, l2 = partition(x, l[1:], cmp=cmp)
+    l1, l2 = __partition(x, l[1:], cmp=cmp)
     if cmp(l[0], x) == 1:
         l2.append(l[0])
     else:
@@ -163,18 +163,44 @@ def partition(x, l: list, cmp=compare) -> tuple[list, list]:
     return (l1, l2)
 
 
-def quicksort(l: list, cmp=compare) -> None:
+def quicksort(l: list, cmp=compare) -> list:
     if len(l) <= 1:
         return l.copy()
     pivot = l.pop()
-    l1, l2 = partition(pivot, l, cmp=cmp)
+    l1, l2 = __partition(pivot, l, cmp=cmp)
+    l.append(pivot)  # undo l.pop()
     l1 = quicksort(l1, cmp=cmp)
     l2 = quicksort(l2, cmp=cmp)
     return l1 + [pivot] + l2
 
+
 # ==============================================================
 # MERGE SORT
 # ==============================================================
+
+def __split(l: list) -> tuple[list, list]:
+    middle = len(l) // 2
+    return (l[:middle], l[middle:])
+
+
+def __merge(l1: list, l2: list, cmp=compare) -> list:
+    if l1 == []:
+        return l2.copy()
+    if l2 == []:
+        return l1.copy()
+    if cmp(l1[0], l2[0]) == -1:
+        return [l1[0]] + __merge(l1[1:], l2, cmp=cmp)
+    return [l2[0]] + __merge(l1, l2[1:], cmp=cmp)
+
+
+def mergesort(l: list, cmp=compare) -> list:
+    n = len(l)
+    if n <= 1:
+        return l.copy()
+    l1, l2 = __split(l)
+    l1 = mergesort(l1, cmp=cmp)
+    l2 = mergesort(l2, cmp=cmp)
+    return __merge(l1, l2, cmp=cmp)
 
 
 if __name__ == '__main__':
