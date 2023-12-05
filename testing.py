@@ -12,7 +12,7 @@ def timing(fn):
         t1 = perf_counter_ns()
         dt = t1 - t0
         print(f"took {dt / 1e9} seconds.")
-        return result
+        return (result, dt)
     return wrapper
 
 
