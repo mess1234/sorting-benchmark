@@ -1,7 +1,12 @@
-from compare import compare
+from collections.abc import Callable
 from functools import wraps
 from random import randrange
 from time import perf_counter_ns
+from typing import Any
+
+from compare import compare
+
+ComparisonFn = Callable[[Any, Any], int]  # TypeAlias for comparison function
 
 
 def timing(fn):
@@ -16,7 +21,7 @@ def timing(fn):
     return wrapper
 
 
-def is_sorted(l: list, cmp=compare) -> bool:
+def is_sorted(l: list, cmp: ComparisonFn = compare) -> bool:
     """Return True if `l` is sorted in ascending order, False otherwise.
 
     Arguments:

@@ -1,6 +1,7 @@
-from compare import compare
 from collections.abc import Callable
 from typing import Any
+
+from compare import compare
 
 ComparisonFn = Callable[[Any, Any], int]  # TypeAlias for comparison function
 
