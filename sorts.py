@@ -1,4 +1,8 @@
 from compare import compare
+from collections.abc import Callable
+from typing import Any
+
+ComparisonFn = Callable[[Any, Any], int]  # TypeAlias for comparison function
 
 
 # ==============================================================
@@ -24,7 +28,7 @@ def __swap(l: list, i: int, j: int) -> None:
     l[i], l[j] = l[j], l[i]
 
 
-def __get_min_index(l: list, a: int, b: int, cmp=compare) -> int:
+def __get_min_index(l: list, a: int, b: int, cmp: ComparisonFn = compare) -> int:
     """
     Arguments:
         l -- a list whose items are comparable with `cmp`
@@ -54,7 +58,7 @@ def __get_min_index(l: list, a: int, b: int, cmp=compare) -> int:
     return min_idx
 
 
-def selection_sort(l: list, cmp=compare) -> None:
+def selection_sort(l: list, cmp: ComparisonFn = compare) -> None:
     """Sorts `l`.
 
     Arguments:
@@ -82,7 +86,7 @@ def selection_sort(l: list, cmp=compare) -> None:
 # INSERTION SORT
 # ==============================================================
 
-def __insert(l: list, i: int, cmp=compare) -> None:
+def __insert(l: list, i: int, cmp: ComparisonFn = compare) -> None:
     """Insert l[i] in l[0:i+1]. The slice l[0:i] is supposed to be sorted.  
 
     Arguments:
@@ -100,7 +104,7 @@ def __insert(l: list, i: int, cmp=compare) -> None:
     l[k+1] = aux
 
 
-def insertion_sort(l: list, cmp=compare) -> None:
+def insertion_sort(l: list, cmp: ComparisonFn = compare) -> None:
     """Sorts `l`.
 
     Arguments:
@@ -130,7 +134,7 @@ def insertion_sort(l: list, cmp=compare) -> None:
 # QUICKSORT
 # ==============================================================
 
-def __partition(x, l: list, cmp=compare) -> tuple[list, list]:
+def __partition(x, l: list, cmp: ComparisonFn = compare) -> tuple[list, list]:
     """Split `l` in two lists `(l1, l2)` such that `l2` contains the items
     greater than `x`.
 
@@ -162,7 +166,7 @@ def __partition(x, l: list, cmp=compare) -> tuple[list, list]:
     return (l1, l2)
 
 
-def quicksort(l: list, cmp=compare) -> list:
+def quicksort(l: list, cmp: ComparisonFn = compare) -> list:
     """Return a new list containing elements of `l` sorted in ascending order.
 
     Arguments:
@@ -224,7 +228,7 @@ def __split(l: list) -> tuple[list, list]:
     return (l[:middle], l[middle:])
 
 
-def __merge(l1: list, l2: list, cmp=compare) -> list:
+def __merge(l1: list, l2: list, cmp: ComparisonFn = compare) -> list:
     """Merge two sorted lists.
 
     Arguments:
@@ -250,7 +254,7 @@ def __merge(l1: list, l2: list, cmp=compare) -> list:
     return [l2[0]] + __merge(l1, l2[1:], cmp=cmp)
 
 
-def mergesort(l: list, cmp=compare) -> list:
+def mergesort(l: list, cmp: ComparisonFn = compare) -> list:
     """Return a new list containing elements of `l` sorted in ascending order.
 
     Arguments:
